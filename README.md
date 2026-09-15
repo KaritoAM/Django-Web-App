@@ -120,8 +120,4 @@ python manage.py test
   proyectos o tareas de otro.
 - Validación de datos en los formularios antes de guardarlos en la base de datos.
 
-**Pruebas y documentación**
-- Pruebas unitarias para modelos y vistas (`accounts/tests.py`, `projects/tests.py`).
-- Este `README.md` con instrucciones de instalación y uso.
-
 
