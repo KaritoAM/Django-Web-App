@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ proyecto.nombre }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div>
+    <h2>{{ proyecto.nombre }}</h2>
+    <p class="text-muted">{{ proyecto.descripcion|default:"Sin descripción" }}</p>
+  </div>
+  <div>
+    <a href="{% url 'project_update' proyecto.pk %}"
+      class="btn btn-outline-secondary btn-sm">Editar proyecto</a>
+    <a href="{% url 'project_delete' proyecto.pk %}"
+      class="btn btn-outline-danger btn-sm">Eliminar proyecto</a>
+  </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="mb-0">Tareas ({{ proyecto.total_tareas }})</h4>
+  <a href="{% url 'task_create' proyecto.pk %}" class="btn btn-primary btn-sm">
+    + Nueva tarea
+  </a>
+</div>
+
+{% if tareas %}
+  <div class="list-group">
+    {% for tarea in tareas %}
+      <div class="list-group-item card-task {% if tarea.estado == 'COMPLETADA' %}completada{% elif tarea.estado == 'EN_PROGRESO' %}en-progreso{% endif %} mb-2">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-1">{{ tarea.titulo }}</h6>
+            <p class="mb-1 text-muted small">
+              {{ tarea.descripcion|default:"Sin descripción"|truncatewords:25 }}
+            </p>
+            <span class="badge bg-light text-dark border">
+              {{ tarea.get_estado_display }}
+            </span>
+            <span class="badge badge-prioridad-{{ tarea.prioridad }}">
+              Prioridad {{ tarea.get_prioridad_display }}
+            </span>
+            {% if tarea.asignado_a %}
+              <span class="badge bg-info text-dark">
+                Asignada a {{ tarea.asignado_a.username }}
+              </span>
+            {% endif %}
+            {% if tarea.fecha_limite %}
+              <span class="badge bg-secondary">
+                Vence: {{ tarea.fecha_limite }}
+              </span>
+            {% endif %}
+          </div>
+          <div class="text-nowrap">
+            <a href="{% url 'task_update' tarea.pk %}"
+              class="btn btn-sm btn-outline-secondary">Editar</a>
+            <a href="{% url 'task_delete' tarea.pk %}"
+              class="btn btn-sm btn-outline-danger">Eliminar</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-info">
+    Este proyecto todavía no tiene tareas.
+  </div>
+{% endif %}
+
+<a href="{% url 'project_list' %}" class="btn btn-link mt-3">← Volver a mis proyectos</a>
+{% endblock %}

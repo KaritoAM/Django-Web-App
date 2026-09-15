@@ -1,0 +1,28 @@
+body {
+  background-color: #f5f7fa;
+}
+
+.card-task {
+  border-left: 4px solid #0d6efd;
+}
+
+.card-task.completada {
+  border-left-color: #198754;
+  opacity: 0.75;
+}
+
+.card-task.en-progreso {
+  border-left-color: #fd7e14;
+}
+
+.badge-prioridad-ALTA {
+  background-color: #dc3545;
+}
+
+.badge-prioridad-MEDIA {
+  background-color: #fd7e14;
+}
+
+.badge-prioridad-BAJA {
+  background-color: #6c757d;
+}
