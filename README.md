@@ -116,7 +116,6 @@ python manage.py test
   estado/prioridad.
 
 **Seguridad y validaciones**
-- Protección CSRF en todos los formularios (usando `{% csrf_token %}`, activo por defecto en Django).
 - Cada vista filtra el queryset por el usuario autenticado y usa un mixin propio (`EsPropietarioMixin`) para impedir que un usuario acceda a
   proyectos o tareas de otro.
 - Validación de datos en los formularios antes de guardarlos en la base de datos.
